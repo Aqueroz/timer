@@ -1,0 +1,154 @@
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background-color: #f4f6f8;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+/* Menu lateral */
+.categories {
+  background-color: #2c3e50;
+  padding: 1rem;
+}
+
+.categories-list {
+  list-style: none;
+  display: flex;
+  justify-content: space-around;
+}
+
+.categories-list li {
+  color: white;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  transition: background 0.3s;
+}
+
+.categories-list li:hover {
+  background-color: #34495e;
+}
+
+/* Seções */
+.section {
+  display: none;
+  padding: 2rem;
+  flex: 1;
+  overflow-y: auto;
+}
+
+.section.active {
+  display: block;
+}
+
+/* Tarefas */
+.input-text {
+  display: flex;
+  margin-bottom: 1rem;
+}
+
+.input-text input {
+  flex: 1;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 6px 0 0 6px;
+  outline: none;
+}
+
+.input-text button {
+  padding: 0.5rem 1rem;
+  border: none;
+  background-color: #3498db;
+  color: white;
+  border-radius: 0 6px 6px 0;
+  cursor: pointer;
+}
+
+.input-text button:hover {
+  background-color: #2980b9;
+}
+
+/* tarefa e botao excluir */
+.task-name {
+  min-width: 640px;
+  padding: 0.5rem;
+  background-color: white;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.task-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.3rem 0;
+  background-color: #edf2f7;
+  border-radius: 5px;
+}
+
+.delete-task {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: #e53e3e;
+}
+
+.delete-task:hover {
+  color: #c53030;
+}
+
+/* Cronômetro */
+.timer {
+  text-align: center;
+}
+
+.timer select {
+  padding: 0.5rem;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 6px;
+  min-width: 120px;
+  border: 1px solid #ccc;
+}
+
+#timer {
+  font-size: 4rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: #2b6cb0;
+}
+
+
+button {
+  padding: 0.5rem 1rem;
+  margin: 0.25rem;
+  width: 120px;
+  background-color: #3182ce;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+button:hover {
+  background-color: #2b6cb0;
+}
+
+/* Gráfico */
+.graph canvas {
+  width: 100% !important;
+  max-width: 600px;
+  margin: auto;
+  display: block;
+}
