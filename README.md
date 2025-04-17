@@ -1,19 +1,18 @@
-# timer
-Cronometro
-Para iniciar na primeira vez, seja para testes ou para uso
+# Cronômetro
 
-# Para o primeiro uso
+## Para o primeiro uso
 Vá até a pasta onde estã oos arquivos e rode um "npm i" ou "npm install" para instalar as dependencias
 
-# Salvar tarefas
+## Salvar tarefas
 Basta clicar no botão "zerar"
 
-# Para rodar o projeto no modo de desenvolvimento
+## Para rodar o projeto no modo de desenvolvimento
 npm start
 
-# Para criar o build para produção
+## Para criar o build para produção
 npm run make
 
+---
 
 ## 📦 Funcionalidades atuais
 
