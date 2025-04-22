@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Timer</title>
+  <link rel="stylesheet" href="index.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
+</head>
+
+<body>
+  <div class="categories">
+    <ul class="categories-list">
+      <li id="taskButton">Tarefas</li>
+      <li id="timerButton">Cronometro</li>
+      <li id="graphButton">Grafico</li>
+    </ul>
+  </div>
+  <div class="section list">
+    <div class="input-text">
+      <input type="text" id="inputTask">
+      <button id="addTask">+</button>
+    </div>
+    <div class="tasks" id="taskList">
+    </div>
+  </div>
+  <div class="section timer">
+    <select name="" id="selectName">
+    </select>
+    <br>
+    <br>
+    <span id="timer">00:00:00</span>
+    <div class="buttons">
+      <button id="start">Iniciar</button>
+      <button id="stop">Parar</button>
+      <button id="clear">Zerar</button>
+    </div>
+  </div>
+  <div class="section graph">
+    <canvas id="chart"></canvas>
+  </div>
+</body>
+<script src="./renderer.js" defer></script>
+
+</html>
