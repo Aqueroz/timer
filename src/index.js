@@ -1,7 +1,6 @@
-// index.js
-const { app, BrowserWindow, ipcMain } = require('electron')
-const fs = require('fs')
-const path = require('path')
+const { app, BrowserWindow, ipcMain } = require('electron');
+const fs = require('fs');
+const path = require('path');
 
 const createWindow = () => {
   const mainWindow = new BrowserWindow({
@@ -12,48 +11,49 @@ const createWindow = () => {
       contextIsolation: true,
       nodeIntegration: false,
     },
-  })
+  });
 
-  mainWindow.loadFile(path.join(__dirname, 'index.html'))
-  mainWindow.webContents.openDevTools()
-}
+  mainWindow.loadFile(path.join(__dirname, 'index.html'));
+
+  // Desative isso na versão final
+  // mainWindow.webContents.openDevTools();
+};
+
+// Caminho seguro para salvar dados do usuário
+const dataFilePath = path.join(app.getPath('userData'), 'data.json');
 
 app.whenReady().then(() => {
-  createWindow()
+  createWindow();
 
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) {
-      createWindow()
+      createWindow();
     }
-  })
-})
+  });
+});
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
-    app.quit()
+    app.quit();
   }
-})
+});
 
 ipcMain.on('save-data', (event, data) => {
-  const filePath = path.join(__dirname, 'data.json')
-  fs.writeFile(filePath, JSON.stringify(data, null, 2), (err) => {
+  fs.writeFile(dataFilePath, JSON.stringify(data, null, 2), (err) => {
     if (err) {
-      console.error('Erro ao salvar o arquivo:', err)
+      console.error('Erro ao salvar o arquivo:', err);
     } else {
-      console.log('Dados salvos com sucesso!')
+      console.log('Dados salvos com sucesso!');
     }
-  })
-})
+  });
+});
 
-ipcMain.handle("load-data", async ()=>{
-  const filePath = path.join(__dirname, "data.json")
-  try{
-    const data = fs.readFileSync(filePath, "utf-8")
-    return JSON.parse(data)
-  } catch (err){
-    console.error("Erro ao ler arquivo: ", err)
-    //se o arquivo estiver vazio ou com erro
-    return{}
-
+ipcMain.handle('load-data', async () => {
+  try {
+    const data = fs.readFileSync(dataFilePath, 'utf-8');
+    return JSON.parse(data);
+  } catch (err) {
+    console.error('Erro ao ler arquivo: ', err);
+    return {};
   }
-})
+});

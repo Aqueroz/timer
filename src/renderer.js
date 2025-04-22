@@ -25,9 +25,14 @@ window.addEventListener("DOMContentLoaded", () => {
     }
 
     function formatTime(seconds) {
-        let minutes = Math.floor(seconds / 60)
+        let hours = Math.floor(seconds / 3600)
+        let minutes = Math.floor((seconds / 3600) / 60)
         let secondsRemain = seconds % 60
-        return `${minutes.toString().padStart(2, "0")}:${secondsRemain.toString().padStart(2, "0")}`
+        return `${pad(hours)}:${pad(minutes)}:${pad(secondsRemain)}`;
+    }
+
+    function pad(n) {
+        return String(n).padStart(2, "0")
     }
 
     startButton.addEventListener("click", () => {
@@ -98,10 +103,10 @@ window.addEventListener("DOMContentLoaded", () => {
             alert("Tarefa já existente")
             inputText.value = ""
             inputText.focus()
-            
+
             return
         }
-        
+
         addTask(taskName)
         inputText.value = ""
     })
@@ -234,8 +239,9 @@ window.addEventListener("DOMContentLoaded", () => {
             data: {
                 labels: labels,
                 datasets: [{
-                    label: 'Tempo total (s)',
-                    data: data,
+                    label: 'Tempo total (min)',
+                    data: tasks.map(t => Math.floor(t.times.reduce((a, b) => a + b, 0) / 60))
+                    ,
                     backgroundColor: 'rgba(54, 162, 235, 0.5)',
                     borderColor: 'rgba(54, 162, 235, 1)',
                     borderWidth: 1
