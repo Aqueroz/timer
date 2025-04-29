@@ -77,6 +77,21 @@ body {
   background-color: #2980b9;
 }
 
+/* botoes de importar e exportar */
+.buttons-file {
+  display: flex;
+  justify-content: space-around;
+  position: absolute;
+  width: 100%;
+  bottom: 2px;
+  margin-bottom: 10px;
+
+  button {
+    width: 200px;
+    height: 45px;
+  }
+}
+
 /* tarefa e botao excluir */
 .task-name {
   min-width: 640px;

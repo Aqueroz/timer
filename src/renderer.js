@@ -26,7 +26,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
     function formatTime(seconds) {
         let hours = Math.floor(seconds / 3600)
-        let minutes = Math.floor((seconds / 3600) / 60)
+        let minutes = Math.floor((seconds % 3600) / 60)
         let secondsRemain = seconds % 60
         return `${pad(hours)}:${pad(minutes)}:${pad(secondsRemain)}`;
     }
@@ -87,7 +87,7 @@ window.addEventListener("DOMContentLoaded", () => {
     var inputText = document.getElementById("inputTask")
     var buttonTask = document.getElementById("addTask")
 
-    const tasks = []
+    let tasks = []
 
     inputText.addEventListener("keypress", e => {
         if (e.key === "Enter") {
@@ -133,7 +133,10 @@ window.addEventListener("DOMContentLoaded", () => {
         renderTask(task)
     }
 
-
+    function saveData() {
+        window.electronAPI.saveData(tasks);
+    }
+    
 
     function renderTaskAll() {
         taskList.innerHTML = ""
@@ -197,6 +200,33 @@ window.addEventListener("DOMContentLoaded", () => {
         taskList.appendChild(taskContainer)
     }
 
+    //para os arquivos caregados
+    function renderTasks() {
+        const taskList = document.getElementById('taskList');
+        taskList.innerHTML = ''; // Limpa a lista
+    
+        tasks.forEach((task, index) => {
+            const li = document.createElement('li');
+            li.textContent = task.name;
+            li.className = 'task-item';
+            
+            const deleteButton = document.createElement('button');
+            deleteButton.textContent = 'X';
+            deleteButton.className = 'delete-task';
+            deleteButton.addEventListener('click', () => {
+                if (confirm(`Excluir a tarefa "${task.name}"?`)) {
+                    tasks.splice(index, 1); // Remove do array
+                    saveData();
+                    renderTasks();
+                    renderChart(); // Atualiza o gráfico
+                }
+            });
+    
+            li.appendChild(deleteButton);
+            taskList.appendChild(li);
+        });
+    }
+    
 
     window.electronAPI.loadData().then(data => {
         if (data.tasks) {
@@ -219,29 +249,64 @@ window.addEventListener("DOMContentLoaded", () => {
         console.log("caregados: ", tasks)
     })
 
-    //grafico
+    //dados
+    const buttonExport = document.getElementById("exportData")
+    const buttonImport = document.getElementById("importData")
 
+    buttonExport.addEventListener("click", async () => {
+        const result = await window.electronAPI.exportData({ tasks });
+
+        if (result.success) {
+            alert("Arquivo exportado com sucesso!");
+        } else {
+            alert("Erro ao exportar: " + result.error);
+        }
+    });
+
+    buttonImport.addEventListener("click", async () => {
+        try {
+            const result = await window.electronAPI.importData();
+            if (result.success) {
+                console.log("Dados importados:", result.data);
+                
+                tasks.length = 0
+                tasks.push(...result.data.tasks)
+                
+                saveData()
+                renderTasks() // Atualizar a tela
+                renderChart()
+            } else {
+                alert("Erro ao importar: " + result.error);
+            }
+        } catch (error) {
+            console.error("Erro ao importar dados:", error);
+            alert("Erro inesperado ao importar dados.");
+        }
+    });
+    
+
+    //grafico
     let chart
 
     function renderChart() {
-        const labels = tasks.map(t => t.name)
-        const data = tasks.map(t => t.times.reduce((a, b) => a + b, 0))
+
+        Chart.register(ChartDataLabels);
+
+        const labels = tasks.map(t => t.name);
+        const data = tasks.map(t => t.times.reduce((a, b) => a + b, 0));
 
         const ctx = document.getElementById('chart').getContext('2d');
 
-        // Se já tiver um gráfico, destrói pra evitar sobreposição
         if (chart) {
             chart.destroy();
         }
-
         chart = new Chart(ctx, {
             type: 'bar',
             data: {
                 labels: labels,
                 datasets: [{
-                    label: 'Tempo total (min)',
-                    data: tasks.map(t => Math.floor(t.times.reduce((a, b) => a + b, 0) / 60))
-                    ,
+                    label: 'Tempo total',
+                    data: data,
                     backgroundColor: 'rgba(54, 162, 235, 0.5)',
                     borderColor: 'rgba(54, 162, 235, 1)',
                     borderWidth: 1
@@ -252,12 +317,49 @@ window.addEventListener("DOMContentLoaded", () => {
                     y: {
                         beginAtZero: true,
                         ticks: {
-                            stepSize: 10
+                            callback: function (value) {
+                                return formatTime(Math.floor(value))
+                            }
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            callback: function (value) {
+                                const label = this.getLabelForValue(value)
+                                // quebrar linhas
+                                return label.match(/.{1,12}/g)
+                            },
+                            maxRotation: 0,
+                            minRotation: 0
+                        }
+                    }
+                },
+                plugins: {
+                    datalabels: {
+                        color: '#000',
+                        anchor: 'end',
+                        align: 'top',
+                        formatter: function (value) {
+                            return formatTime(Math.floor(value))
+                        },
+                        font: {
+                            weight: 'bold'
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function (context) {
+                                const value = context.raw;
+                                return `Tempo: ${formatTime(Math.floor(value))}`
+                            }
                         }
                     }
                 }
-            }
+            },
+            plugins: [ChartDataLabels]
         });
+
     }
+
 })
 
