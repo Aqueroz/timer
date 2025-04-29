@@ -23,6 +23,7 @@ npm run make
 - ✅ Salvar os dados localmente em um arquivo JSON
 - ✅ Exibir o tempo total por tarefa em um gráfico (Chart.js)
 - ✅ Interface separada por seções: tarefas, cronômetro e gráfico
+- ✅ Adicionar botão de exportar dados (JSON)
 
 ---
 
@@ -30,13 +31,14 @@ npm run make
 
 - [ ] Ao tentar adicionar uma tarefa repetida e fechar o alerta, o input pode travar
 - [ ] Tarefas deletadas não removem completamente todos os dados de sessão
+- [ ] Ao reabrir o programa, o dados são apagados, forçando o usuario a exportar e importar os dados
+- [ ] Ao importar um arquivo, é necessario adicionar uma nova tarefa para poder escolher nas opções do cronometro e e seguir com a marcação 
 
 ---
 
 ## 🔧 Planejamento futuro
 
 - [ ] Corrigir bug do input após tarefa repetida
-- [ ] Adicionar botão de exportar dados (JSON/CSV)
 - [ ] Adicionar modo escuro
 - [ ] Permitir editar nomes de tarefas
 - [ ] Mostrar histórico de tempo por dia
