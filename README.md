@@ -14,38 +14,38 @@ npm run make
 
 ---
 
-## 📦 Funcionalidades atuais
+## Funcionalidades atuais
 
-- ✅ Adicionar tarefas únicas
-- ✅ Selecionar uma tarefa e iniciar um cronômetro
-- ✅ Pausar, continuar e zerar o tempo da tarefa
-- ✅ Registrar o tempo de execução de cada tarefa
-- ✅ Salvar os dados localmente em um arquivo JSON
-- ✅ Exibir o tempo total por tarefa em um gráfico (Chart.js)
-- ✅ Interface separada por seções: tarefas, cronômetro e gráfico
-- ✅ Adicionar botão de exportar dados (JSON)
-
----
-
-## 🐞 Bugs conhecidos
-
-- [ ] Ao tentar adicionar uma tarefa repetida e fechar o alerta, o input pode travar
-- [ ] Tarefas deletadas não removem completamente todos os dados de sessão
-- [ ] Ao reabrir o programa, o dados são apagados, forçando o usuario a exportar e importar os dados
-- [ ] Ao importar um arquivo, é necessario adicionar uma nova tarefa para poder escolher nas opções do cronometro e e seguir com a marcação 
+- Adicionar tarefas únicas
+- Selecionar uma tarefa e iniciar um cronômetro
+- Pausar, continuar e zerar o tempo da tarefa
+- Registrar o tempo de execução de cada tarefa
+- Salvar os dados localmente em um arquivo JSON
+- Exibir o tempo total por tarefa em um gráfico (Chart.js)
+- Interface separada por seções: tarefas, cronômetro e gráfico
+- Adicionar botão de exportar dados (JSON)
 
 ---
 
-## 🔧 Planejamento futuro
+## Bugs conhecidos
 
-- [ ] Corrigir bug do input após tarefa repetida
-- [ ] Adicionar modo escuro
-- [ ] Permitir editar nomes de tarefas
-- [ ] Mostrar histórico de tempo por dia
+- Ao tentar adicionar uma tarefa repetida e fechar o alerta, o input pode travar
+- Tarefas deletadas não removem completamente todos os dados de sessão
+- Ao reabrir o programa, o dados são apagados, forçando o usuario a exportar e importar os dados
+- Ao importar um arquivo, é necessario adicionar uma nova tarefa para poder escolher nas opções do cronometro e e seguir com a marcação 
 
 ---
 
-## 🛠️ Tecnologias usadas
+## Planejamento futuro
+
+- Corrigir bug do input após tarefa repetida
+- Adicionar modo escuro
+- Permitir editar nomes de tarefas
+- Mostrar histórico de tempo por dia
+
+---
+
+## Tecnologias usadas
 
 - [Electron](https://www.electronjs.org/) – para o app desktop
 - [JavaScript Vanilla](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript)
