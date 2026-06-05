@@ -55,7 +55,7 @@ npm run make
 ---
 
 
-Criei este projeto como uma solução pessoal para cronometrar minhas tarefas sem depender de aplicativos com anúncios. Ele também está sendo usado como estudo de desenvolvimento com Electron.
+Criei este projeto como uma solução pessoal para cronometrar minhas tarefas sem depender de aplicativos com anúncios. E com a praticidade de estar rodando na minha própria máquina.
 
 
 
